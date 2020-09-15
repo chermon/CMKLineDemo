@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "KLineChartView.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    KLineChartView *chartView = [[KLineChartView alloc] initWithFrame:CGRectMake(0, 100, 300, 600)];
+    [self.view addSubview: chartView];
 }
 
 

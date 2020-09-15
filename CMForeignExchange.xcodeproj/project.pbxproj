@@ -16,6 +16,23 @@
 		CF4233CC2508B5FB001DAB06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4233CB2508B5FB001DAB06 /* main.m */; };
 		CF4233D62508B5FC001DAB06 /* CMForeignExchangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4233D52508B5FC001DAB06 /* CMForeignExchangeTests.m */; };
 		CF4233E12508B5FC001DAB06 /* CMForeignExchangeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4233E02508B5FC001DAB06 /* CMForeignExchangeUITests.m */; };
+		CF5F21CF250F7F6D00D5E1FC /* KLineChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21CB250F7F6D00D5E1FC /* KLineChartModel.m */; };
+		CF5F21D0250F7F6D00D5E1FC /* KLineChartDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21CD250F7F6D00D5E1FC /* KLineChartDataSet.m */; };
+		CF5F21ED250F83C300D5E1FC /* MJPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21DA250F83C300D5E1FC /* MJPropertyType.m */; };
+		CF5F21EE250F83C300D5E1FC /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21DD250F83C300D5E1FC /* NSObject+MJKeyValue.m */; };
+		CF5F21EF250F83C300D5E1FC /* MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21DE250F83C300D5E1FC /* MJProperty.m */; };
+		CF5F21F0250F83C300D5E1FC /* NSObject+MJCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21E0250F83C300D5E1FC /* NSObject+MJCoding.m */; };
+		CF5F21F1250F83C300D5E1FC /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21E2250F83C300D5E1FC /* MJExtensionConst.m */; };
+		CF5F21F2250F83C300D5E1FC /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21E3250F83C300D5E1FC /* NSObject+MJProperty.m */; };
+		CF5F21F3250F83C300D5E1FC /* NSObject+MJClass.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21E5250F83C300D5E1FC /* NSObject+MJClass.m */; };
+		CF5F21F4250F83C300D5E1FC /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21E6250F83C300D5E1FC /* NSString+MJExtension.m */; };
+		CF5F21F5250F83C300D5E1FC /* MJPropertyKey.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21E7250F83C300D5E1FC /* MJPropertyKey.m */; };
+		CF5F21F6250F83C300D5E1FC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF5F21EB250F83C300D5E1FC /* Info.plist */; };
+		CF5F21F7250F83C300D5E1FC /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F21EC250F83C300D5E1FC /* MJFoundation.m */; };
+		CF5F2201250F8AE800D5E1FC /* UIView+CSH.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F2200250F8AE800D5E1FC /* UIView+CSH.m */; };
+		CF5F220425105E5700D5E1FC /* KLineChartScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F220325105E5700D5E1FC /* KLineChartScrollView.m */; };
+		CF5F2207251068D400D5E1FC /* UIScrollView+contentInset.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F2206251068D400D5E1FC /* UIScrollView+contentInset.m */; };
+		CF5F220A25106DCD00D5E1FC /* KLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5F220925106DCD00D5E1FC /* KLineChartView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +71,43 @@
 		CF4233DC2508B5FC001DAB06 /* CMForeignExchangeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMForeignExchangeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF4233E02508B5FC001DAB06 /* CMForeignExchangeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMForeignExchangeUITests.m; sourceTree = "<group>"; };
 		CF4233E22508B5FD001DAB06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF5F21CB250F7F6D00D5E1FC /* KLineChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineChartModel.m; sourceTree = "<group>"; };
+		CF5F21CC250F7F6D00D5E1FC /* KLineChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineChartModel.h; sourceTree = "<group>"; };
+		CF5F21CD250F7F6D00D5E1FC /* KLineChartDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLineChartDataSet.m; sourceTree = "<group>"; };
+		CF5F21CE250F7F6D00D5E1FC /* KLineChartDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLineChartDataSet.h; sourceTree = "<group>"; };
+		CF5F21D2250F822700D5E1FC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		CF5F21D7250F83C300D5E1FC /* MJPropertyKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPropertyKey.h; sourceTree = "<group>"; };
+		CF5F21D8250F83C300D5E1FC /* NSObject+MJClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJClass.h"; sourceTree = "<group>"; };
+		CF5F21D9250F83C300D5E1FC /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
+		CF5F21DA250F83C300D5E1FC /* MJPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPropertyType.m; sourceTree = "<group>"; };
+		CF5F21DB250F83C300D5E1FC /* NSObject+MJProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJProperty.h"; sourceTree = "<group>"; };
+		CF5F21DC250F83C300D5E1FC /* MJExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConst.h; sourceTree = "<group>"; };
+		CF5F21DD250F83C300D5E1FC /* NSObject+MJKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJKeyValue.m"; sourceTree = "<group>"; };
+		CF5F21DE250F83C300D5E1FC /* MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJProperty.m; sourceTree = "<group>"; };
+		CF5F21DF250F83C300D5E1FC /* MJFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJFoundation.h; sourceTree = "<group>"; };
+		CF5F21E0250F83C300D5E1FC /* NSObject+MJCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJCoding.m"; sourceTree = "<group>"; };
+		CF5F21E1250F83C300D5E1FC /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
+		CF5F21E2250F83C300D5E1FC /* MJExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConst.m; sourceTree = "<group>"; };
+		CF5F21E3250F83C300D5E1FC /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
+		CF5F21E4250F83C300D5E1FC /* MJPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPropertyType.h; sourceTree = "<group>"; };
+		CF5F21E5250F83C300D5E1FC /* NSObject+MJClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJClass.m"; sourceTree = "<group>"; };
+		CF5F21E6250F83C300D5E1FC /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		CF5F21E7250F83C300D5E1FC /* MJPropertyKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPropertyKey.m; sourceTree = "<group>"; };
+		CF5F21E8250F83C300D5E1FC /* MJProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJProperty.h; sourceTree = "<group>"; };
+		CF5F21E9250F83C300D5E1FC /* NSObject+MJKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJKeyValue.h"; sourceTree = "<group>"; };
+		CF5F21EA250F83C300D5E1FC /* NSObject+MJCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJCoding.h"; sourceTree = "<group>"; };
+		CF5F21EB250F83C300D5E1FC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF5F21EC250F83C300D5E1FC /* MJFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJFoundation.m; sourceTree = "<group>"; };
+		CF5F21F9250F841D00D5E1FC /* CMHeaderDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMHeaderDefine.h; sourceTree = "<group>"; };
+		CF5F21FB250F88DD00D5E1FC /* CMColorDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMColorDefine.h; sourceTree = "<group>"; };
+		CF5F21FF250F8AE800D5E1FC /* UIView+CSH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+CSH.h"; sourceTree = "<group>"; };
+		CF5F2200250F8AE800D5E1FC /* UIView+CSH.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+CSH.m"; sourceTree = "<group>"; };
+		CF5F220225105E5700D5E1FC /* KLineChartScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KLineChartScrollView.h; sourceTree = "<group>"; };
+		CF5F220325105E5700D5E1FC /* KLineChartScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KLineChartScrollView.m; sourceTree = "<group>"; };
+		CF5F2205251068D400D5E1FC /* UIScrollView+contentInset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+contentInset.h"; sourceTree = "<group>"; };
+		CF5F2206251068D400D5E1FC /* UIScrollView+contentInset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+contentInset.m"; sourceTree = "<group>"; };
+		CF5F220825106DCD00D5E1FC /* KLineChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KLineChartView.h; sourceTree = "<group>"; };
+		CF5F220925106DCD00D5E1FC /* KLineChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KLineChartView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +158,10 @@
 		CF4233B82508B5F7001DAB06 /* CMForeignExchange */ = {
 			isa = PBXGroup;
 			children = (
+				CF5F21FC250F8A2F00D5E1FC /* CMCategory */,
+				CF5F21D5250F837E00D5E1FC /* CMLib */,
+				CF5F21D1250F816E00D5E1FC /* CMDefine */,
+				CF5F21C7250F78C800D5E1FC /* KLineChartView */,
 				CF4233B92508B5F7001DAB06 /* AppDelegate.h */,
 				CF4233BA2508B5F7001DAB06 /* AppDelegate.m */,
 				CF4233BC2508B5F8001DAB06 /* SceneDelegate.h */,
@@ -112,6 +170,7 @@
 				CF4233C02508B5F8001DAB06 /* ViewController.m */,
 				CF4233C22508B5F8001DAB06 /* Main.storyboard */,
 				CF4233C52508B5FB001DAB06 /* Assets.xcassets */,
+				CF5F21D2250F822700D5E1FC /* PrefixHeader.pch */,
 				CF4233C72508B5FB001DAB06 /* LaunchScreen.storyboard */,
 				CF4233CA2508B5FB001DAB06 /* Info.plist */,
 				CF4233CB2508B5FB001DAB06 /* main.m */,
@@ -135,6 +194,78 @@
 				CF4233E22508B5FD001DAB06 /* Info.plist */,
 			);
 			path = CMForeignExchangeUITests;
+			sourceTree = "<group>";
+		};
+		CF5F21C7250F78C800D5E1FC /* KLineChartView */ = {
+			isa = PBXGroup;
+			children = (
+				CF5F21CE250F7F6D00D5E1FC /* KLineChartDataSet.h */,
+				CF5F21CD250F7F6D00D5E1FC /* KLineChartDataSet.m */,
+				CF5F21CC250F7F6D00D5E1FC /* KLineChartModel.h */,
+				CF5F21CB250F7F6D00D5E1FC /* KLineChartModel.m */,
+				CF5F220225105E5700D5E1FC /* KLineChartScrollView.h */,
+				CF5F220325105E5700D5E1FC /* KLineChartScrollView.m */,
+				CF5F220825106DCD00D5E1FC /* KLineChartView.h */,
+				CF5F220925106DCD00D5E1FC /* KLineChartView.m */,
+			);
+			path = KLineChartView;
+			sourceTree = "<group>";
+		};
+		CF5F21D1250F816E00D5E1FC /* CMDefine */ = {
+			isa = PBXGroup;
+			children = (
+				CF5F21F9250F841D00D5E1FC /* CMHeaderDefine.h */,
+				CF5F21FB250F88DD00D5E1FC /* CMColorDefine.h */,
+			);
+			path = CMDefine;
+			sourceTree = "<group>";
+		};
+		CF5F21D5250F837E00D5E1FC /* CMLib */ = {
+			isa = PBXGroup;
+			children = (
+				CF5F21D6250F83C300D5E1FC /* MJExtension */,
+			);
+			path = CMLib;
+			sourceTree = "<group>";
+		};
+		CF5F21D6250F83C300D5E1FC /* MJExtension */ = {
+			isa = PBXGroup;
+			children = (
+				CF5F21D7250F83C300D5E1FC /* MJPropertyKey.h */,
+				CF5F21D8250F83C300D5E1FC /* NSObject+MJClass.h */,
+				CF5F21D9250F83C300D5E1FC /* NSString+MJExtension.h */,
+				CF5F21DA250F83C300D5E1FC /* MJPropertyType.m */,
+				CF5F21DB250F83C300D5E1FC /* NSObject+MJProperty.h */,
+				CF5F21DC250F83C300D5E1FC /* MJExtensionConst.h */,
+				CF5F21DD250F83C300D5E1FC /* NSObject+MJKeyValue.m */,
+				CF5F21DE250F83C300D5E1FC /* MJProperty.m */,
+				CF5F21DF250F83C300D5E1FC /* MJFoundation.h */,
+				CF5F21E0250F83C300D5E1FC /* NSObject+MJCoding.m */,
+				CF5F21E1250F83C300D5E1FC /* MJExtension.h */,
+				CF5F21E2250F83C300D5E1FC /* MJExtensionConst.m */,
+				CF5F21E3250F83C300D5E1FC /* NSObject+MJProperty.m */,
+				CF5F21E4250F83C300D5E1FC /* MJPropertyType.h */,
+				CF5F21E5250F83C300D5E1FC /* NSObject+MJClass.m */,
+				CF5F21E6250F83C300D5E1FC /* NSString+MJExtension.m */,
+				CF5F21E7250F83C300D5E1FC /* MJPropertyKey.m */,
+				CF5F21E8250F83C300D5E1FC /* MJProperty.h */,
+				CF5F21E9250F83C300D5E1FC /* NSObject+MJKeyValue.h */,
+				CF5F21EA250F83C300D5E1FC /* NSObject+MJCoding.h */,
+				CF5F21EB250F83C300D5E1FC /* Info.plist */,
+				CF5F21EC250F83C300D5E1FC /* MJFoundation.m */,
+			);
+			path = MJExtension;
+			sourceTree = "<group>";
+		};
+		CF5F21FC250F8A2F00D5E1FC /* CMCategory */ = {
+			isa = PBXGroup;
+			children = (
+				CF5F21FF250F8AE800D5E1FC /* UIView+CSH.h */,
+				CF5F2200250F8AE800D5E1FC /* UIView+CSH.m */,
+				CF5F2205251068D400D5E1FC /* UIScrollView+contentInset.h */,
+				CF5F2206251068D400D5E1FC /* UIScrollView+contentInset.m */,
+			);
+			path = CMCategory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +371,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF5F21F6250F83C300D5E1FC /* Info.plist in Resources */,
 				CF4233C92508B5FB001DAB06 /* LaunchScreen.storyboard in Resources */,
 				CF4233C62508B5FB001DAB06 /* Assets.xcassets in Resources */,
 				CF4233C42508B5F8001DAB06 /* Main.storyboard in Resources */,
@@ -267,9 +399,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF5F220425105E5700D5E1FC /* KLineChartScrollView.m in Sources */,
+				CF5F21F1250F83C300D5E1FC /* MJExtensionConst.m in Sources */,
+				CF5F21F3250F83C300D5E1FC /* NSObject+MJClass.m in Sources */,
+				CF5F21EE250F83C300D5E1FC /* NSObject+MJKeyValue.m in Sources */,
 				CF4233C12508B5F8001DAB06 /* ViewController.m in Sources */,
+				CF5F21D0250F7F6D00D5E1FC /* KLineChartDataSet.m in Sources */,
 				CF4233BB2508B5F7001DAB06 /* AppDelegate.m in Sources */,
+				CF5F2207251068D400D5E1FC /* UIScrollView+contentInset.m in Sources */,
+				CF5F21F0250F83C300D5E1FC /* NSObject+MJCoding.m in Sources */,
+				CF5F21F7250F83C300D5E1FC /* MJFoundation.m in Sources */,
+				CF5F21F5250F83C300D5E1FC /* MJPropertyKey.m in Sources */,
+				CF5F21EF250F83C300D5E1FC /* MJProperty.m in Sources */,
+				CF5F21F2250F83C300D5E1FC /* NSObject+MJProperty.m in Sources */,
+				CF5F21CF250F7F6D00D5E1FC /* KLineChartModel.m in Sources */,
+				CF5F21F4250F83C300D5E1FC /* NSString+MJExtension.m in Sources */,
+				CF5F220A25106DCD00D5E1FC /* KLineChartView.m in Sources */,
+				CF5F2201250F8AE800D5E1FC /* UIView+CSH.m in Sources */,
 				CF4233CC2508B5FB001DAB06 /* main.m in Sources */,
+				CF5F21ED250F83C300D5E1FC /* MJPropertyType.m in Sources */,
 				CF4233BE2508B5F8001DAB06 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -427,7 +575,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -440,12 +588,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SAR59K3KKY;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CMForeignExchange//PrefixHeader.pch";
 				INFOPLIST_FILE = CMForeignExchange/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = chermon.CMForeignExchange;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nxgroup.fetrading;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -456,12 +606,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SAR59K3KKY;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CMForeignExchange//PrefixHeader.pch";
 				INFOPLIST_FILE = CMForeignExchange/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = chermon.CMForeignExchange;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nxgroup.fetrading;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
