@@ -11,7 +11,7 @@
 #import "KLineChartDataSet.h"
 #import "KLineChartModel.h"
 
-@interface KLineChartView()
+@interface KLineChartView()<UIScrollViewDelegate>
 @property (nonatomic, weak) KLineChartScrollView *lineChartScrollView;
 @property (nonatomic, strong) KLineChartDataSet *dataSet;
 @property (nonatomic, strong) NSMutableArray *data;  //K线图数据
@@ -32,15 +32,17 @@
         
         
         KLineChartScrollView *lineChartScrollView = [[KLineChartScrollView alloc]initWithFrame:frame dataSet:dataSet];
+        lineChartScrollView.delegate = self;
         [self addSubview:lineChartScrollView];
         self.lineChartScrollView = lineChartScrollView;
     }
     return self;
 }
 
+//更新UI
 -(void)reload:(BOOL)moreData{
     [self.lineChartScrollView setLineChartViewWidth];
-    if (moreData) {
+    if (moreData) {//加载更多
         if (self.lineChartScrollView.contentOffset.x == 0) {//左边加载
             [self.lineChartScrollView setContentOffset:CGPointMake(self.lineChartScrollView.contentSize.width - self.lastTotalWidth, 0) animated:false];
         }
@@ -54,6 +56,22 @@
     _lastTotalWidth = self.lineChartScrollView.contentSize.width;
 }
 
+#pragma mark - scrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat offsetX = scrollView.contentOffset.x;
+    if (offsetX < 0) {
+        offsetX = 0;
+    }
+    self.lineChartScrollView.minIndex = offsetX/(self.dataSet.candleWidth + self.dataSet.candleSpace);
+    self.lineChartScrollView.maxIndex = ceil((offsetX+self.viewWidth)/(self.dataSet.candleWidth + self.dataSet.candleSpace));
+    
+    //重绘
+    [self.lineChartScrollView drawWiew];
+    
+}
+
+
+//增加数据
 - (void)addDataFromArray:(NSMutableArray *)array {
     for (NSInteger i = 0; i < array.count; i++) {
         [_data insertObject:array[i] atIndex:0];

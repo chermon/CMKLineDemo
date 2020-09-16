@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame dataSet:(KLineChartDataSet *)dataSet;
 - (void)setLineChartViewWidth;
+- (void)drawWiew;
 @end
 
 NS_ASSUME_NONNULL_END
