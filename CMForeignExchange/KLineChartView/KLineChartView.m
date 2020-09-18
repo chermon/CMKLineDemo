@@ -8,7 +8,6 @@
 
 #import "KLineChartView.h"
 #import "KLineChartScrollView.h"
-#import "KLineChartDataSet.h"
 #import "KLineChartModel.h"
 
 @interface KLineChartView()<UIScrollViewDelegate>
@@ -31,7 +30,7 @@
         _fullScreen = false;
         
         
-        KLineChartScrollView *lineChartScrollView = [[KLineChartScrollView alloc]initWithFrame:frame dataSet:dataSet];
+        KLineChartScrollView *lineChartScrollView = [[KLineChartScrollView alloc] initWithFrame:self.bounds dataSet:dataSet];
         lineChartScrollView.delegate = self;
         [self addSubview:lineChartScrollView];
         self.lineChartScrollView = lineChartScrollView;
@@ -70,6 +69,21 @@
     
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    //加载更多
+    if (scrollView.contentOffset.x <= -50) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(KLineChartViewForMoreData)]) {
+            [self.delegate KLineChartViewForMoreData];
+        }
+    }
+    //重新加载
+    else if (scrollView.contentOffset.x >= self.lineChartScrollView.contentSize.width - self.viewWidth + self.dataSet.candleContentRight + 50){
+        if(self.delegate && [self.delegate respondsToSelector:@selector(KLineChartViewForReload)]){
+            [self.delegate KLineChartViewForReload];
+        }
+        
+    }
+}
 
 //增加数据
 - (void)addDataFromArray:(NSMutableArray *)array {

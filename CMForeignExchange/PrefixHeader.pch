@@ -11,5 +11,7 @@
 
 #import "CMHeaderDefine.h"
 #import "CMColorDefine.h"
+#import "CMLengthDefine.h"
+#import "CMOtherDefine.h"
 
 #endif /* PrefixHeader_h */

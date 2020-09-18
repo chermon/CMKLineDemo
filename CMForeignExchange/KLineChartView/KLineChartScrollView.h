@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *data;  //K线图数据
 @property (nonatomic, assign, getter=isFullScreen) BOOL fullScreen; //设置全屏
 @property (nonatomic, assign) NSInteger digits;  //小数位数
+@property (nonatomic, assign) BOOL isETF;
 @property (nonatomic, assign) NSInteger minIndex;  //显示最左边的位置
 @property (nonatomic, assign) NSInteger maxIndex;  //显示最右边的位置
 @property (nonatomic, assign, readonly) CGFloat candleHight;  //顶部图表高度

@@ -47,7 +47,7 @@
 #define GITCONTACTUSNAVCOLOR RGB(62,74,89)
 
 //白标主题色
-#if TARGET_VERSION ==1
+
 #define GITSTYLEUPCOLOR_RED UIColorFromRGB(0xF5524F)           //红色  K线图
 #define GITSTYLECOLOR_RED UIColorFromRGB(0xFF605B)           //红色
 #define GITSTYLECOLOR_BOTTOM_RED RGBA(245, 82, 79, 0.15)           //底部背景红色
@@ -70,36 +70,6 @@
 //#define GITSTYLELAYERENDCOLOR UIColorFromRGB(0xfa709a)    //渐变色结束颜色
 #define GITBORDERSELECTEDORANGECOLOR  RGBA(255, 213, 33, 1) //边框选中黄
 #define GITTWARNINGORANGECOLOR  RGBA(245, 166, 35, 1) //警告橘色
-
-
-
-#elif TARGET_VERSION ==3
-#define GITSTYLEUPCOLOR_RED UIColorFromRGBA(0xc81527,1)           //红色  K线图
-#define GITSTYLECOLOR_RED UIColorFromRGBA(0xc81527,0.8)           //红色->红色-80%
-#define GITSTYLECOLOR_GREEN UIColorFromRGB(0x06ba82)           //绿色->绿色-100%
-#define GITSTYLECOLOR_BLUE UIColorFromRGB(0xb48f3c)          //蓝色->黄色-100%
-#define GITSTYLECOLOR_ORANGE UIColorFromRGB(0xd7000f)      //黄色->红色—100%
-#define GITBBTEXTCOLOR GITCOLOR_ZERO_WHITE                           //字体颜色34->纯白色
-#define GITBBTEXTTITLECOLOR GITCOLOR_ZERO_WHITE                     //个别标题颜色（偏黄色）->纯白色
-#define GITBBMASTERCOLOR UIColorFromRGB(0xc52922)           //高手跟单标志黄色->深黄色
-#define GITBBBTNTITLECOLOR UIColorFromRGB(0xFFFFFF)
-
-#elif TARGET_VERSION ==4
-#define GITSTYLEUPCOLOR_RED UIColorFromRGBA(0xc81527,1)           //红色  K线图
-#define GITSTYLECOLOR_RED UIColorFromRGBA(0xc81527,0.8)           //红色->红色-80%
-#define GITSTYLECOLOR_BOTTOM_RED RGBA(245, 82, 79, 0.15)           //底部背景红色
-#define GITSTYLECOLOR_GREEN UIColorFromRGB(0x06ba82)           //绿色->绿色-100%
-#define GITSTYLECOLOR_BOTTOM_GREEN RGBA(75, 214, 99, 0.15)         //底部背景绿色
-
-#define GITSTYLECOLOR_BLUE UIColorFromRGB(0x414bb4)          //蓝色->黄色-100%
-#define GITSTYLECOLOR_ORANGE UIColorFromRGB(0x4555cd)      //黄色->红色—100%
-#define GITBBTEXTCOLOR UIColorFromRGB(0x2C2C2C)                          //字体颜色34->纯白色
-#define GITBBTEXTTITLECOLOR UIColorFromRGB(0x9F8700) //GITCOLOR_ZERO_WHITE                     //个别标题颜色（偏黄色）->纯白色
-#define GITBBMASTERCOLOR UIColorFromRGB(0xc81527)           //高手跟单标志黄色->深黄色
-#define GITBBBTNTITLECOLOR UIColorFromRGB(0xFFFFFF)
-#define GITSTYLELAYERBEGINCOLOR UIColorFromRGB(0x51bdf2)    //渐变色开始颜色
-#define GITSTYLELAYERENDCOLOR UIColorFromRGB(0x4555cd)    //渐变色结束颜色
-#endif
 
 
 //*********************************颜色转换********************************

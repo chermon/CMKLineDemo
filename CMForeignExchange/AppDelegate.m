@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+static AFHTTPSessionManager *manager;
+
 @interface AppDelegate ()
 
 @end
@@ -16,11 +18,58 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [CMUrlsManager sharedManager];
+    [self getallSymbolsInfo];
     return YES;
 }
 
 
+#pragma mark - 解决AFHTTPSessionManager的内存泄漏
+
+- (AFHTTPSessionManager *)sharedHTTPSession {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [AFHTTPSessionManager manager];
+
+        manager.requestSerializer.timeoutInterval = 20;
+        
+
+
+    });
+    return manager;
+}
+
+
+- (void)getallSymbolsInfo
+{
+    [CMHttpManager symbolsListWithParam:@{@"detail":@"1"} success:^(id result) {
+        NSString *is_succ = [result emptyObjectForKey:@"is_succ"];
+        if ([is_succ isEqualToString:@"1"]) {
+            [self saveSymbolsInfoDic:result];
+            [[NSUserDefaults standardUserDefaults] setObject:result forKey:SymbolsInfoKey];
+        }
+    } failureL:^(id error) {
+       
+    }];
+}
+
+- (void)saveSymbolsInfoDic:(NSDictionary *)symbolsDic
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSString *is_succ = [symbolsDic emptyObjectForKey:@"is_succ"] ;
+        if ([is_succ isEqualToString:@"1"]) {
+            NSArray *data = symbolsDic[@"data"];
+            NSMutableDictionary *muDic = [[NSMutableDictionary alloc]init];
+            for (NSDictionary *objc in data) {
+                NSString *dicKey = [objc emptyObjectForKey:@"symbol"];
+                [muDic setObject:objc forKey:dicKey];
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:muDic forKey:SymbolsInfoDicKey];
+            
+        }
+    });
+}
 //#pragma mark - UISceneSession lifecycle
 //
 //

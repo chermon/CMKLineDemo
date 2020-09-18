@@ -10,6 +10,6 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-
+- (AFHTTPSessionManager *)sharedHTTPSession;
 @end
 

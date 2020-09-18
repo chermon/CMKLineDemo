@@ -65,26 +65,149 @@
     //价格横线
     CGFloat priceLineSpace = (self.candleHight - self.dataSet.candleContentTop - self.dataSet.candleContentBottom)/(self.dataSet.candlePriceLineCount+1);
     for (int i = 0; i < self.dataSet.candlePriceLineCount; i++) {
-        [self drawLine:context startPoint:CGPointMake(rect.origin.x, self.dataSet.candleContentTop + priceLineSpace*(i+1)) stopPoint:CGPointMake(rect.origin.x + self.viewWidth, self.dataSet.candleContentTop + priceLineSpace*(i+1)) color:self.dataSet.candleBorderColor lineWidth:self.dataSet.candleBoxLineWidth];
+        [self drawLine:context startPoint:CGPointMake(rect.origin.x, self.dataSet.candleContentTop + priceLineSpace*(i+1)) stopPoint:CGPointMake(rect.origin.x + self.viewWidth, self.dataSet.candleContentTop + priceLineSpace*(i+1)) color:self.dataSet.candleBoxLineColor lineWidth:self.dataSet.candleBoxLineWidth];
     }
     
+    //最高、最低价格位置
+    CGFloat maxHighScale = CGFLOAT_MAX;
+    CGFloat maxHighX = 0;
+    CGFloat minLowScale = CGFLOAT_MIN;
+    CGFloat minLowX = 0;
+    
     //画蜡烛
-    for(int i = self.minIndex; i < self.maxIndex && i < self.data.count - self.dataSet.candleNotShowLeftCount; i++){
-        KLineChartModel *dataModel = [self.data objectAtIndex:i + self.dataSet.candleNotShowLeftCount];
+    for(NSInteger i = self.minIndex; i < self.maxIndex && i < self.data.count - self.dataSet.candleNotShowLeftCount; i++){
+        KLineChartModel *dataModel = [self.data objectAtIndex: self.dataSet.candleNotShowLeftCount + i];
         //转换蜡烛坐标
         CGFloat candleX = self.dataSet.candleSpace + (self.dataSet.candleWidth+self.dataSet.candleSpace)*i;
         CGFloat openScale = self.dataSet.candleContentTop + (self.maxPrice - [dataModel.open doubleValue])*self.priceCoordsScale;
         CGFloat closeScale = self.dataSet.candleContentTop + (self.maxPrice - [dataModel.close doubleValue])*self.priceCoordsScale;
         CGFloat highScale = self.dataSet.candleContentTop + (self.maxPrice - [dataModel.high doubleValue])*self.priceCoordsScale;
         CGFloat lowScale = self.dataSet.candleContentTop + (self.maxPrice - [dataModel.low doubleValue])*self.priceCoordsScale;
-        //显示日期
-        if(i){
-            
+        //记录最高点和最低点的Y值，和蜡烛的位置坐标
+        if (highScale < maxHighScale) {
+            maxHighScale = highScale;
+            maxHighX = candleX;
+        }
+        if (lowScale > minLowScale) {
+            minLowScale = lowScale;
+            minLowX = candleX;
+        }
+        //1.显示日期
+        if(i%self.dataSet.candlePriceCount == 0){
+            //价格线
+            if (self.dataSet.showCandleBoxVerticalLine) {
+                [self drawLine:context startPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, self.dataSet.candleContentTop) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, self.candleHight - self.dataSet.candleContentBottom) color:self.dataSet.candleBoxLineColor lineWidth:self.dataSet.candleBoxLineWidth];
+            }
+
+            //价格Lable
+            NSString *priceTime = [self transformStandardWithTimestamp: dataModel.time];
+            NSMutableAttributedString *dateStrAtt = [[NSMutableAttributedString alloc] initWithString: priceTime attributes:@{NSFontAttributeName: self.dataSet.candleTimeFont, NSForegroundColorAttributeName: self.dataSet.candleTimeColor}];
+            CGSize dateStrAttSize = [dateStrAtt size];
+            [self drawLabel:context attributesText:dateStrAtt rect:CGRectMake(candleX+self.dataSet.candleWidth/2 - dateStrAttSize.width/2, self.candleHight - self.dataSet.candleContentBottom + (self.dataSet.candleContentBottom - dateStrAttSize.height)/2, dateStrAttSize.width, dateStrAttSize.height)];
         }
         
+        //2.显示蜡烛
+        //上涨（开仓价格小于闭市价格）
+        if (openScale > closeScale) {
+            [self drawFill:context rect:CGRectMake(candleX, closeScale, self.dataSet.candleWidth, openScale - closeScale) color:self.dataSet.candleRiseColor];
+            [self drawLine:context startPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, highScale) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, lowScale) color:self.dataSet.candleRiseColor lineWidth:self.dataSet.candleLineWidth];
+        }
+        //下跌（开仓价格大于闭市价格）
+        else if(openScale < closeScale){
+            [self drawFill:context rect:CGRectMake(candleX, openScale, self.dataSet.candleWidth, closeScale - openScale) color:self.dataSet.candleFallColor];
+            [self drawLine:context startPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, highScale) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, lowScale) color:self.dataSet.candleFallColor lineWidth:self.dataSet.candleLineWidth];
+        }
+        else{//开仓价格等于闭市价格
+            UIColor *candleColor = self.dataSet.candleRiseColor;
+            if (i > 0) {
+                KLineChartModel *lastDataModel = [self.data objectAtIndex: self.dataSet.candleNotShowLeftCount + i - 1];
+                if(lastDataModel.close > dataModel.close){
+                    candleColor = self.dataSet.candleFallColor;
+                }
+            }
+            [self drawFill:context rect:CGRectMake(candleX, openScale, self.dataSet.candleWidth, 1) color:candleColor];
+            [self drawLine:context startPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, highScale) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, lowScale) color:candleColor lineWidth:self.dataSet.candleLineWidth];
+        }
+        
+        //3.指标线
+        if(self.dataSet.candleType == KLineChartCandleViewTypeMA && i > 0){
+            KLineChartModel *lastDataModel = [self.data objectAtIndex: self.dataSet.candleNotShowLeftCount + i - 1];
+            CGFloat lastMaX = candleX - self.dataSet.candleSpace - self.dataSet.candleWidth/2;
+            if (dataModel.ma5 > 0) {
+                CGFloat MA5Y = self.dataSet.candleContentTop + (self.maxPrice - dataModel.ma5) * self.priceCoordsScale;
+                CGFloat lastMA5Y = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.ma5) * self.priceCoordsScale;
+                [self drawLine:context startPoint:CGPointMake(lastMaX, lastMA5Y) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MA5Y) color:self.dataSet.candleMA5Color lineWidth:self.dataSet.candleBoxLineWidth];
+            }
+            if (dataModel.ma10 > 0) {
+                CGFloat MA10Y = self.dataSet.candleContentTop + (self.maxPrice - dataModel.ma10) * self.priceCoordsScale;
+                CGFloat lastMA10Y = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.ma10) * self.priceCoordsScale;
+                [self drawLine:context startPoint:CGPointMake(lastMaX, lastMA10Y) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MA10Y) color:self.dataSet.candleMA10Color lineWidth:self.dataSet.candleBoxLineWidth];
+            }
+            if (dataModel.ma20 > 0) {
+                CGFloat MA20Y = self.dataSet.candleContentTop + (self.maxPrice - dataModel.ma20) * self.priceCoordsScale;
+                CGFloat lastMA20Y = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.ma20) * self.priceCoordsScale;
+                [self drawLine:context startPoint:CGPointMake(lastMaX, lastMA20Y) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MA20Y) color:self.dataSet.candleMA20Color lineWidth:self.dataSet.candleBoxLineWidth];
+            }
+        }
+        else if (self.dataSet.candleType == KLineChartCandleViewTypeBOLL && i > 0){
+            KLineChartModel *lastDataModel = [self.data objectAtIndex: self.dataSet.candleNotShowLeftCount + i - 1];
+            CGFloat lastBOLLX = candleX - self.dataSet.candleSpace - self.dataSet.candleWidth/2;
+            if (dataModel.mb > 0) {
+                //中轨线
+                CGFloat MBY = self.dataSet.candleContentTop + (self.maxPrice - dataModel.mb) * self.priceCoordsScale;
+                CGFloat lastMBY = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.mb) * self.priceCoordsScale;
+                [self drawLine:context startPoint:CGPointMake(lastBOLLX, lastMBY) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MBY) color:self.dataSet.candleMIDColor lineWidth:self.dataSet.candleBoxLineWidth];
+                //上轨线
+                CGFloat UPY = self.dataSet.candleContentTop + (self.maxPrice - dataModel.up) * self.priceCoordsScale;
+                CGFloat lastUPY = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.up) * self.priceCoordsScale;
+                [self drawLine:context startPoint:CGPointMake(lastBOLLX, lastUPY) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, UPY) color:self.dataSet.candleUPPERColor lineWidth:self.dataSet.candleBoxLineWidth];
+                //下轨线
+                CGFloat DNY = self.dataSet.candleContentTop + (self.maxPrice - dataModel.dn) * self.priceCoordsScale;
+                CGFloat lastDNY = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.dn) * self.priceCoordsScale;
+                [self drawLine:context startPoint:CGPointMake(lastBOLLX, lastDNY) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, DNY) color:self.dataSet.candleLOWERColor lineWidth:self.dataSet.candleBoxLineWidth];
+            }
+        }
     }
     
+    //显示价格
+    for (int i = 0; i < self.dataSet.candlePriceCount; i++) {
+        NSMutableAttributedString *priceAttStr = [[NSMutableAttributedString alloc] initWithString:[KLineChartModel handlePrice:[self getPriceWithRow:i] digits:self.digits isETF:self.isETF] attributes:@{NSFontAttributeName:self.dataSet.candlePriceColor, NSForegroundColorAttributeName:self.dataSet.candlePriceFont}];
+        CGSize priceAttStrSize = [priceAttStr size];
+        if (self.dataSet.candleShowPriceType == KLineChartShowPriceTypeRight) {
+            [self drawLabel:context attributesText:priceAttStr rect:CGRectMake(self.viewWidth - self.dataSet.candleContentRight, self.dataSet.candleContentTop + priceLineSpace*i - priceAttStrSize.height/2 - self.dataSet.candleBoxLineWidth, priceAttStrSize.width, priceAttStrSize.height)];
+        }
+    }
     
+    //显示最低点和最高点的价格
+    // - 当前k线图最高点的价格
+    NSString *maxPriceStr = [KLineChartModel handlePrice:self.maxPrice - (maxHighScale - self.dataSet.candleContentTop)/self.priceCoordsScale digits:self.digits isETF:self.isETF];
+    NSString *showMaxPriceStr;
+    BOOL showPriceToLeft;
+    if (maxHighX > rect.origin.x + self.viewWidth/2) {
+        showMaxPriceStr = [NSString stringWithFormat:@"%@->", maxPriceStr];
+        showPriceToLeft = true;
+    }else{
+        showMaxPriceStr = [NSString stringWithFormat:@"<-%@", maxPriceStr];
+        showPriceToLeft = false;
+    }
+    NSMutableAttributedString *maxPriceAttStr = [[NSMutableAttributedString alloc] initWithString:showMaxPriceStr attributes:@{NSFontAttributeName:self.dataSet.candlePriceFont, NSForegroundColorAttributeName:self.dataSet.candleMarkColor}];
+    CGSize maxPriceAttSize = [maxPriceAttStr size];
+    [self drawLabel:context attributesText:maxPriceAttStr rect:CGRectMake((showPriceToLeft ? maxHighX - maxPriceAttSize.width : maxHighX + self.dataSet.candleWidth), maxHighScale - maxPriceAttSize.height/2, maxPriceAttSize.width, maxPriceAttSize.height)];
+    
+    // - 当前k线图最低点的价格
+    NSString *minPriceStr = [KLineChartModel handlePrice:self.maxPrice - (minLowScale - self.dataSet.candleContentTop)/self.priceCoordsScale digits:self.digits isETF:self.isETF];
+    NSString *showMinPriceStr;
+    BOOL showMinPriceToLeft;
+    if (minLowX > rect.origin.x + self.viewWidth/2) {
+        showMinPriceStr = [NSString stringWithFormat:@"%@->", minPriceStr];
+        showMinPriceToLeft = true;
+    }else{
+        showMinPriceStr = [NSString stringWithFormat:@"<-%@", minPriceStr];
+        showMinPriceToLeft = false;
+    }
+    NSMutableAttributedString *minPriceAttStr = [[NSMutableAttributedString alloc] initWithString:showMinPriceStr attributes:@{NSFontAttributeName:self.dataSet.candlePriceFont, NSForegroundColorAttributeName:self.dataSet.candleMarkColor}];
+    CGSize minPriceAttSize = [minPriceAttStr size];
+    [self drawLabel:context attributesText:minPriceAttStr rect:CGRectMake((showMinPriceToLeft ? minLowX - minPriceAttSize.width : minLowX + self.dataSet.candleWidth), minLowScale - minPriceAttSize.height/2, minPriceAttSize.width, minPriceAttSize.height)];
 }
 
 #pragma mark - 设置K线图宽度
@@ -97,6 +220,16 @@
     self.contentSize = CGSizeMake(totalW, 0);
 }
 
+#pragma mark 获取价格
+
+- (CGFloat)getPriceWithRow:(NSInteger)row {
+    CGFloat price = self.maxPrice - (self.maxPrice - self.minPrice)/(self.dataSet.candlePriceCount - 1)*row;
+    
+    if (isinf(price) || isnan(price)) {
+        price = 0;
+    }
+    return price;
+}
 #pragma mark - 获取报价范围
 -(void)setMaxAndMinPrice{
     if (self.data && self.data.count - self.dataSet.candleNotShowLeftCount > 0) {
@@ -178,4 +311,28 @@
 - (void)drawLabel:(CGContextRef)context attributesText:(NSAttributedString *)attributesText rect:(CGRect)rect {
     [attributesText drawInRect:rect];
 }
+
+#pragma mark - 时间戳
+
+- (NSString *)transformStandardWithTimestamp:(NSString *)timestamp {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    if (self.dataSet.candleTimeType == KLineChartTimeTypeHour) {
+        [formatter setDateFormat:@"HH:mm"];
+    }
+    else {
+        [formatter setDateFormat:@"MM-dd"];
+    }
+    
+    //设置时区,这个对于时间的处理有时很重要
+    //例如你在国内发布信息,用户在国外的另一个时区,你想让用户看到正确的发布时间就得注意时区设置,时间的换算.
+    //例如你发布的时间为2010-01-26 17:40:50,那么在英国爱尔兰那边用户看到的时间应该是多少呢?
+    //他们与我们有7个小时的时差,所以他们那还没到这个时间呢...那就是把未来的事做了
+    
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timestamp integerValue]];
+    return [formatter stringFromDate:date];
+}
+
 @end

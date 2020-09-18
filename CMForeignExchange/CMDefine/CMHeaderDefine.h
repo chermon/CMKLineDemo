@@ -12,5 +12,11 @@
 #import <UIKit/UIKit.h>
 #import "MJExtension.h"
 #import "UIView+CSH.h"
+#import "UIFont+sysfont.h"
+#import "CMTools.h"
+#import "NSDictionary+empty.h"
+#import "AFNetworking.h"
+#import "CMHttpManager.h"
+#import "CMUrlsManager.h"
 
 #endif /* CMHeaderDefine_h */
