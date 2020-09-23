@@ -17,8 +17,9 @@
 @implementation KLineChartScrollView
 
 -(instancetype)initWithFrame:(CGRect)frame dataSet:(KLineChartDataSet *)dataSet{
-    if (!self) {
-        self = [super initWithFrame:frame];
+    self = [super initWithFrame:frame];
+    if (self) {
+        
         _dataSet = dataSet;
         _fullScreen = false;
         _candleHight = self.viewHeight;
@@ -65,7 +66,7 @@
     //价格横线
     CGFloat priceLineSpace = (self.candleHight - self.dataSet.candleContentTop - self.dataSet.candleContentBottom)/(self.dataSet.candlePriceLineCount+1);
     for (int i = 0; i < self.dataSet.candlePriceLineCount; i++) {
-        [self drawLine:context startPoint:CGPointMake(rect.origin.x, self.dataSet.candleContentTop + priceLineSpace*(i+1)) stopPoint:CGPointMake(rect.origin.x + self.viewWidth, self.dataSet.candleContentTop + priceLineSpace*(i+1)) color:self.dataSet.candleBoxLineColor lineWidth:self.dataSet.candleBoxLineWidth];
+        [self drawDashLine:context startPoint:CGPointMake(rect.origin.x, self.dataSet.candleContentTop + priceLineSpace*(i+1)) stopPoint:CGPointMake(rect.origin.x + self.viewWidth, self.dataSet.candleContentTop + priceLineSpace*(i+1)) color:self.dataSet.candleBoxLineColor lineWidth:self.dataSet.candleBoxLineWidth];
     }
     
     //最高、最低价格位置
@@ -93,10 +94,10 @@
             minLowX = candleX;
         }
         //1.显示日期
-        if(i%self.dataSet.candlePriceCount == 0){
+        if(i%self.dataSet.candleBetweenTimeNumber == 0){
             //价格线
             if (self.dataSet.showCandleBoxVerticalLine) {
-                [self drawLine:context startPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, self.dataSet.candleContentTop) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, self.candleHight - self.dataSet.candleContentBottom) color:self.dataSet.candleBoxLineColor lineWidth:self.dataSet.candleBoxLineWidth];
+                [self drawDashLine:context startPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, self.dataSet.candleContentTop) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, self.candleHight - self.dataSet.candleContentBottom) color:self.dataSet.candleBoxLineColor lineWidth:self.dataSet.candleBoxLineWidth];
             }
 
             //价格Lable
@@ -133,17 +134,17 @@
         if(self.dataSet.candleType == KLineChartCandleViewTypeMA && i > 0){
             KLineChartModel *lastDataModel = [self.data objectAtIndex: self.dataSet.candleNotShowLeftCount + i - 1];
             CGFloat lastMaX = candleX - self.dataSet.candleSpace - self.dataSet.candleWidth/2;
-            if (dataModel.ma5 > 0) {
+            if (lastDataModel.ma5 > 0) {
                 CGFloat MA5Y = self.dataSet.candleContentTop + (self.maxPrice - dataModel.ma5) * self.priceCoordsScale;
                 CGFloat lastMA5Y = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.ma5) * self.priceCoordsScale;
                 [self drawLine:context startPoint:CGPointMake(lastMaX, lastMA5Y) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MA5Y) color:self.dataSet.candleMA5Color lineWidth:self.dataSet.candleBoxLineWidth];
             }
-            if (dataModel.ma10 > 0) {
+            if (lastDataModel.ma10 > 0) {
                 CGFloat MA10Y = self.dataSet.candleContentTop + (self.maxPrice - dataModel.ma10) * self.priceCoordsScale;
                 CGFloat lastMA10Y = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.ma10) * self.priceCoordsScale;
                 [self drawLine:context startPoint:CGPointMake(lastMaX, lastMA10Y) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MA10Y) color:self.dataSet.candleMA10Color lineWidth:self.dataSet.candleBoxLineWidth];
             }
-            if (dataModel.ma20 > 0) {
+            if (lastDataModel.ma20 > 0) {
                 CGFloat MA20Y = self.dataSet.candleContentTop + (self.maxPrice - dataModel.ma20) * self.priceCoordsScale;
                 CGFloat lastMA20Y = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.ma20) * self.priceCoordsScale;
                 [self drawLine:context startPoint:CGPointMake(lastMaX, lastMA20Y) stopPoint:CGPointMake(candleX+self.dataSet.candleWidth/2, MA20Y) color:self.dataSet.candleMA20Color lineWidth:self.dataSet.candleBoxLineWidth];
@@ -152,7 +153,7 @@
         else if (self.dataSet.candleType == KLineChartCandleViewTypeBOLL && i > 0){
             KLineChartModel *lastDataModel = [self.data objectAtIndex: self.dataSet.candleNotShowLeftCount + i - 1];
             CGFloat lastBOLLX = candleX - self.dataSet.candleSpace - self.dataSet.candleWidth/2;
-            if (dataModel.mb > 0) {
+            if (lastDataModel.mb > 0) {
                 //中轨线
                 CGFloat MBY = self.dataSet.candleContentTop + (self.maxPrice - dataModel.mb) * self.priceCoordsScale;
                 CGFloat lastMBY = self.dataSet.candleContentTop + (self.maxPrice - lastDataModel.mb) * self.priceCoordsScale;
@@ -171,10 +172,11 @@
     
     //显示价格
     for (int i = 0; i < self.dataSet.candlePriceCount; i++) {
-        NSMutableAttributedString *priceAttStr = [[NSMutableAttributedString alloc] initWithString:[KLineChartModel handlePrice:[self getPriceWithRow:i] digits:self.digits isETF:self.isETF] attributes:@{NSFontAttributeName:self.dataSet.candlePriceColor, NSForegroundColorAttributeName:self.dataSet.candlePriceFont}];
+        NSMutableAttributedString *priceAttStr = [[NSMutableAttributedString alloc] initWithString:[KLineChartModel handlePrice:[self getPriceWithRow:i] digits:self.digits isETF:self.isETF] attributes:@{NSFontAttributeName:self.dataSet.candlePriceFont, NSForegroundColorAttributeName:self.dataSet.candlePriceColor }];
+        
         CGSize priceAttStrSize = [priceAttStr size];
         if (self.dataSet.candleShowPriceType == KLineChartShowPriceTypeRight) {
-            [self drawLabel:context attributesText:priceAttStr rect:CGRectMake(self.viewWidth - self.dataSet.candleContentRight, self.dataSet.candleContentTop + priceLineSpace*i - priceAttStrSize.height/2 - self.dataSet.candleBoxLineWidth, priceAttStrSize.width, priceAttStrSize.height)];
+            [self drawLabel:context attributesText:priceAttStr rect:CGRectMake(rect.origin.x + self.viewWidth - self.dataSet.candleContentRight, self.dataSet.candleContentTop + priceLineSpace*i - priceAttStrSize.height/2 - self.dataSet.candleBoxLineWidth, priceAttStrSize.width, priceAttStrSize.height)];
         }
     }
     
@@ -184,10 +186,10 @@
     NSString *showMaxPriceStr;
     BOOL showPriceToLeft;
     if (maxHighX > rect.origin.x + self.viewWidth/2) {
-        showMaxPriceStr = [NSString stringWithFormat:@"%@->", maxPriceStr];
+        showMaxPriceStr = [NSString stringWithFormat:@"%@→", maxPriceStr];
         showPriceToLeft = true;
     }else{
-        showMaxPriceStr = [NSString stringWithFormat:@"<-%@", maxPriceStr];
+        showMaxPriceStr = [NSString stringWithFormat:@"←%@", maxPriceStr];
         showPriceToLeft = false;
     }
     NSMutableAttributedString *maxPriceAttStr = [[NSMutableAttributedString alloc] initWithString:showMaxPriceStr attributes:@{NSFontAttributeName:self.dataSet.candlePriceFont, NSForegroundColorAttributeName:self.dataSet.candleMarkColor}];
@@ -199,10 +201,10 @@
     NSString *showMinPriceStr;
     BOOL showMinPriceToLeft;
     if (minLowX > rect.origin.x + self.viewWidth/2) {
-        showMinPriceStr = [NSString stringWithFormat:@"%@->", minPriceStr];
+        showMinPriceStr = [NSString stringWithFormat:@"%@→", minPriceStr];
         showMinPriceToLeft = true;
     }else{
-        showMinPriceStr = [NSString stringWithFormat:@"<-%@", minPriceStr];
+        showMinPriceStr = [NSString stringWithFormat:@"←%@", minPriceStr];
         showMinPriceToLeft = false;
     }
     NSMutableAttributedString *minPriceAttStr = [[NSMutableAttributedString alloc] initWithString:showMinPriceStr attributes:@{NSFontAttributeName:self.dataSet.candlePriceFont, NSForegroundColorAttributeName:self.dataSet.candleMarkColor}];
@@ -286,6 +288,10 @@
     CGContextSetStrokeColorWithColor(context, color.CGColor);
     //设置路径
     CGContextBeginPath(context);
+    CGFloat arr[] = {1,0};
+    //参数2：表示开头的点如果绘制，eg:参数2如果等于2，则先绘制1个点（即3-2），然后跳过1个点，再绘制3个点，然后跳过1个点...反复绘制。
+    //参数4：表示数组的长度。
+    CGContextSetLineDash(context, 0, arr, 2);
     CGContextMoveToPoint(context, startPoint.x, startPoint.y);
     CGContextAddLineToPoint(context, stopPoint.x, stopPoint.y);
     CGContextStrokePath(context);

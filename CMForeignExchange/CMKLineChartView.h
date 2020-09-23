@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CMKLineChartView : UIView
-
+- (void)setSymbols_en:(NSString *)symbols_en symbols_cn:(NSString *)symbols_cn;
 @end
 
 NS_ASSUME_NONNULL_END

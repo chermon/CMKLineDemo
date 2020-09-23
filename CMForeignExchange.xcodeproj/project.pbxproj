@@ -738,14 +738,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SAR59K3KKY;
+				DEVELOPMENT_TEAM = PYL6XTT7FP;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CMForeignExchange//PrefixHeader.pch";
 				INFOPLIST_FILE = CMForeignExchange/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nxgroup.fetrading;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laohuzhihui.newpublic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -756,14 +757,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SAR59K3KKY;
+				DEVELOPMENT_TEAM = PYL6XTT7FP;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CMForeignExchange//PrefixHeader.pch";
 				INFOPLIST_FILE = CMForeignExchange/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nxgroup.fetrading;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laohuzhihui.newpublic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

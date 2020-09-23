@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "KLineChartView.h"
+#import "CMKLineChartView.h"
 
 @interface ViewController ()
 
@@ -17,7 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    KLineChartView *chartView = [[KLineChartView alloc] initWithFrame:CGRectMake(0, 100, 300, 600)];
+    self.view.backgroundColor = [UIColor whiteColor];
+    CMKLineChartView *chartView = [[CMKLineChartView alloc] initWithFrame:CGRectMake(0, 100, GITSCREEN_WIDTH, 600)];
+    [chartView setSymbols_en:@"CADCHF" symbols_cn:@"加元瑞郎"];
     [self.view addSubview: chartView];
 }
 

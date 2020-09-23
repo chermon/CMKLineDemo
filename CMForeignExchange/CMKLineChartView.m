@@ -13,10 +13,10 @@
 
 #define defaultLimit 300
 
-@interface CMKLineChartView()
+@interface CMKLineChartView()<KLineChartViewDelegate>
 @property (nonatomic, weak) KLineChartView *lineChartView;  //K线图
 @property (nonatomic, weak) CMAnimalView *loadView;
-@property (nonatomic, strong) NSMutableArray *klineData; //K线图数字
+@property (nonatomic, strong) NSMutableArray *klineData; //K线图数据
 @property (nonatomic, strong) KLineChartDataSet *dataSet; //K线图初始设置
 @property (nonatomic, copy) NSString *symbols_en;
 @property (nonatomic, assign) NSInteger currentOffset;
@@ -94,14 +94,18 @@
         _dataSet.belowType = KLineChartBelowViewTypeMACD;
         
         KLineChartView *lineChartView = [[KLineChartView alloc] initWithFrame: CGRectMake(0, 0, self.viewWidth, 300) dataSet:_dataSet];
+        lineChartView.delegate = self;
+        [lineChartView setDefaultMAWithCycle1:5 cycle2:10 cycle3:20];
+        [lineChartView setDefaultBOLLWithCycle:20 offset:2];
         [self addSubview:lineChartView];
         self.lineChartView = lineChartView;
         
-        //加载中动画
-        CMAnimalView *loadView = [[CMAnimalView alloc] initWithFrame: lineChartView.frame];
-        loadView.backgroundColor = GITCOLOR_ZERO_WHITE;
-        [self addSubview:loadView];
-        self.loadView = loadView;
+        
+//        //加载中动画
+//        CMAnimalView *loadView = [[CMAnimalView alloc] initWithFrame: lineChartView.frame];
+//        loadView.backgroundColor = GITCOLOR_ZERO_WHITE;
+//        [self addSubview:loadView];
+//        self.loadView = loadView;
     }
     return self;
 }
@@ -167,6 +171,18 @@
     }
 }
 
+#pragma mark KLineChartViewDelegate
+//重新加载
+- (void)KLineChartViewForReload{
+    self.currentOffset = 0;
+    [self reload:false];
+}
+
+//更多加载
+- (void)KLineChartViewForMoreData{
+    [self reload:true];
+}
+
 -(void)getHistoryPriceData:(NSString *)type moreData:(BOOL)moreData{
     
     NSDictionary *param = @{@"symbol":self.symbols_en, @"type":type, @"offset":[NSString stringWithFormat:@"%ld", self.currentOffset], @"limit":[NSString stringWithFormat:@"%d", defaultLimit],@"stop_time":self.stop_time};
@@ -177,8 +193,16 @@
             if (self.currentOffset == 0) {
                 self.lineChartView.digits = self.digits;
                 self.lineChartView.timeType = type;
-           
+                self.klineData = kLineModel.data.records;
+                [self.lineChartView removeArray];
             }
+            else{
+                [self.klineData addObjectsFromArray:kLineModel.data.records];
+            }
+            self.currentOffset = self.klineData.count;
+            self.lineChartView.haveMoreData = self.klineData.count < [kLineModel.data.record_count integerValue] ? true:false;
+            [self.lineChartView addDataFromArray:kLineModel.data.records];
+            [self.lineChartView reload:moreData];
         }
         
     } failureL:^(id  _Nonnull error) {

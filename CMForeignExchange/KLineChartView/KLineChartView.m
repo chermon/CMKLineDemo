@@ -71,7 +71,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     //加载更多
-    if (scrollView.contentOffset.x <= -50) {
+    if (scrollView.contentOffset.x <= -50 && self.haveMoreData) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(KLineChartViewForMoreData)]) {
             [self.delegate KLineChartViewForMoreData];
         }
@@ -83,6 +83,11 @@
         }
         
     }
+}
+
+- (void)setDigits:(NSInteger)digits{
+    _digits = digits;
+    self.lineChartScrollView.digits = digits;
 }
 
 //增加数据
@@ -117,6 +122,49 @@
     }
     
     self.lineChartScrollView.data = self.data;
+}
+
+- (void)removeArray {
+    [_data removeAllObjects];
+}
+
+#pragma - 设置指标默认参数
+
+- (void)setDefaultMAWithCycle1:(NSInteger)cycle1 cycle2:(NSInteger)cycle2 cycle3:(NSInteger)cycle3 {
+    _defaultMAArr = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%ld", (long)cycle1], [NSString stringWithFormat:@"%ld", (long)cycle2], [NSString stringWithFormat:@"%ld", (long)cycle3], nil];
+    _MAArr = [NSArray arrayWithArray:self.defaultMAArr];
+}
+
+- (void)setDefaultBOLLWithCycle:(NSInteger)cycle offset:(NSInteger)offset {
+    _defaultBOLLArr = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%ld", (long)cycle], [NSString stringWithFormat:@"%ld", (long)offset], nil];
+    _BOLLArr = [NSArray arrayWithArray:self.defaultBOLLArr];
+}
+#pragma mark - 设置指标参数
+#pragma mark MA
+
+- (void)setMAArr:(NSArray *)MAArr {
+    _MAArr = MAArr;
+    
+    for (NSInteger i = 0; i < self.data.count; i++) {
+        KLineChartModel *oneModel = [self.data objectAtIndex:i];
+        oneModel.ma5 = [self getMA:[MAArr[0] integerValue] dataIndex:i];
+        oneModel.ma10 = [self getMA:[MAArr[1] integerValue] dataIndex:i];
+        oneModel.ma20 = [self getMA:[MAArr[2] integerValue] dataIndex:i];
+    }
+}
+
+#pragma mark BOLL
+
+- (void)setBOLLArr:(NSArray *)BOLLArr {
+    _BOLLArr = BOLLArr;
+    
+    for (NSInteger i = 0; i < self.data.count; i++) {
+        KLineChartModel *oneModel = [self.data objectAtIndex:i];
+        oneModel.md = [self getMD:[BOLLArr[0] integerValue] dataIndex:i];
+        oneModel.mb = [self getMA:[BOLLArr[0] integerValue] dataIndex:i - 1];
+        oneModel.up = oneModel.mb + oneModel.md * [BOLLArr[1] integerValue];
+        oneModel.dn = oneModel.mb - oneModel.md * [BOLLArr[1] integerValue];
+    }
 }
 
 #pragma mark - 计算
