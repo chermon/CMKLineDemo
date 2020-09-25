@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CF05843F251458C200B9BC23 /* CMKLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF05843E251458C200B9BC23 /* CMKLineChartView.m */; };
 		CF05844225145C4A00B9BC23 /* UIFont+sysfont.m in Sources */ = {isa = PBXBuildFile; fileRef = CF05844125145C4A00B9BC23 /* UIFont+sysfont.m */; };
+		CF290EEA251DD27C00626DB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4233BA2508B5F7001DAB06 /* AppDelegate.m */; };
 		CF4033662514A55A00E1F32A /* CMAnimalView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4033652514A55A00E1F32A /* CMAnimalView.m */; };
 		CF4033752514A72B00E1F32A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = CF40336C2514A72A00E1F32A /* AFURLResponseSerialization.m */; };
 		CF4033762514A72B00E1F32A /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF40336D2514A72A00E1F32A /* AFHTTPSessionManager.m */; };
@@ -576,6 +577,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF290EEA251DD27C00626DB8 /* AppDelegate.m in Sources */,
 				CF4233D62508B5FC001DAB06 /* CMForeignExchangeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

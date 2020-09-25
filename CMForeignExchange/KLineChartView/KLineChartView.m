@@ -23,7 +23,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = dataSet.backgroundColor;
         //初始化
         _dataSet = dataSet;
         _data = [NSMutableArray array];
@@ -31,6 +30,7 @@
         
         
         KLineChartScrollView *lineChartScrollView = [[KLineChartScrollView alloc] initWithFrame:self.bounds dataSet:dataSet];
+        lineChartScrollView.backgroundColor = dataSet.backgroundColor;
         lineChartScrollView.delegate = self;
         [self addSubview:lineChartScrollView];
         self.lineChartScrollView = lineChartScrollView;

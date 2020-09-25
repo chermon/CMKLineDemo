@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 static AFHTTPSessionManager *manager;
 
@@ -20,6 +21,11 @@ static AFHTTPSessionManager *manager;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [CMUrlsManager sharedManager];
     [self getallSymbolsInfo];
+    ViewController *vc = [[ViewController alloc] init];
+    self.window = [[UIWindow alloc] initWithFrame: [UIScreen mainScreen].bounds];
+    self.window.rootViewController = vc;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
